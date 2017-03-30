@@ -35,12 +35,14 @@ public class RightController : MonoBehaviour {
 
 	//RightController position
 	Vector3 rightControllerPosition;
-	//Slider GameObject Attributes
 
+
+	//Slider GameObject Attributes
 	public GameObject planeSizeSlider;
 	bool resizingThePlane = false;
 
-
+	//Typology Instantiation
+	public Transform typology;
 	// Use this for initialization
 	void Start () {
 		
@@ -70,17 +72,18 @@ public class RightController : MonoBehaviour {
 		touchPadUp = Controller.GetTouchUp (touchPad);
 
 
-		if (touchPadPressed) {
+		if (triggerButtonPressed) {
 
 			rightControllerPosition = this.transform.position;
 			resizingThePlane = true;
-
+			typology.transform.position = rightControllerPosition;
 
 		
 		}
-		if (touchPadUp) 
+		if (triggerButtonUp) 
 		{
 			resizingThePlane = false;
+
 
 		}
 
@@ -92,7 +95,7 @@ public class RightController : MonoBehaviour {
 	void OnTriggerStay(Collider col)
 	{
 		
-		if(col.gameObject.CompareTag("PlaneSizeSliderHolder"))
+		/*if(col.gameObject.CompareTag("PlaneSizeSliderHolder"))
 		{
 			if (resizingThePlane==true) {
 				
@@ -104,7 +107,19 @@ public class RightController : MonoBehaviour {
 		}
 
 
+*/
+
+		if(col.gameObject.CompareTag("TypologyMenuButton"))
+		{
+			if (resizingThePlane) {
+				Instantiate (typology);
+			}
+
+		}
+
+
 
 	}
+
 
 }
