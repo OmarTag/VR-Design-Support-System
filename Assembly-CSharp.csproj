@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Controllers\RightController.cs" />
      <Compile Include="Assets\Scripts\Menu\Menu.cs" />
      <Compile Include="Assets\Scripts\Plane\PlaneSizeSetting.cs" />
+     <Compile Include="Assets\Scripts\Typology\NewTypologySet.cs" />
      <Compile Include="Assets\Scripts\Typology\TypologySizeSetter.cs" />
      <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
      <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
