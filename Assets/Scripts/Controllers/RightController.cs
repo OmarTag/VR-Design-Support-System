@@ -42,7 +42,13 @@ public class RightController : MonoBehaviour {
 	bool resizingThePlane = false;
 
 	//Typology Instantiation
-	public Transform typology;
+	public GameObject typology;
+
+
+	//Trigger Button collider booleans
+	private bool createTypology= false;
+	private bool holdingTypolgy = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -72,50 +78,79 @@ public class RightController : MonoBehaviour {
 		touchPadUp = Controller.GetTouchUp (touchPad);
 
 
+		rightControllerPosition = this.transform.position;
+
+		//when the trigger button is pressed
+		if (triggerButtonDown) 
+		{
+			if (createTypology) {
+				Instantiate (typology, this.transform);
+				Debug.Log ("typology created");
+			}
+		}
+
 		if (triggerButtonPressed) {
 
-			rightControllerPosition = this.transform.position;
-			resizingThePlane = true;
-			typology.transform.position = rightControllerPosition;
 
-		
+			//when creating the typology prefab and colllided with the tpology button in the menu
+
+
+			//while holding the trigger and tpology created, keep it in the same position of the controller
+			//typology.transform.position = rightControllerPosition;
+
+
+
+
 		}
+
 		if (triggerButtonUp) 
 		{
-			resizingThePlane = false;
+			//after releasing the trigger it stays whenever its placed
 
 
 		}
-
-
 	}
 
 
 
 	void OnTriggerStay(Collider col)
 	{
-		
-		/*if(col.gameObject.CompareTag("PlaneSizeSliderHolder"))
-		{
-			if (resizingThePlane==true) {
-				
-
-				planeSizeSlider.gameObject.transform.localScale = new Vector3 ((Controller.GetAxis ().x * 2), 1, 1);
-
-				}
-
-		}
-
-
-*/
 
 		if(col.gameObject.CompareTag("TypologyMenuButton"))
 		{
-			if (resizingThePlane) {
-				Instantiate (typology);
-			}
+			createTypology = true;
 
 		}
+
+
+		if(col.gameObject.CompareTag("InstatiatedTypology"))
+		{
+			holdingTypolgy = true;
+
+			Debug.Log ("collided with the typology");
+
+		}
+
+
+	}
+
+	void OnTriggerExit(Collider col)
+	{
+
+		if(col.gameObject.CompareTag("TypologyMenuButton"))
+		{
+			createTypology = false;
+
+		}
+
+		if(col.gameObject.CompareTag("InstatiatedTypology"))
+		{
+			holdingTypolgy = false;
+
+			Debug.Log ("UNNNNNNNNNNNNN collided with th typology");
+
+		}
+
 
 
 
