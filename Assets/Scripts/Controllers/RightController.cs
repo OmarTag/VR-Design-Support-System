@@ -43,11 +43,12 @@ public class RightController : MonoBehaviour {
 
 	//Typology Instantiation
 	public GameObject typology;
-
+	private GameObject instantiatedPrefab;
 
 	//Trigger Button collider booleans
 	private bool createTypology= false;
 	private bool holdingTypolgy = false;
+	private bool leftTheInstantitatedTypology = false;
 
 	// Use this for initialization
 	void Start () {
@@ -83,9 +84,12 @@ public class RightController : MonoBehaviour {
 		//when the trigger button is pressed
 		if (triggerButtonDown) 
 		{
-			if (createTypology) {
-				Instantiate (typology, this.transform);
-				Debug.Log ("typology created");
+			if (createTypology==true) {
+				
+				leftTheInstantitatedTypology = false;
+			   instantiatedPrefab= Instantiate(typology);
+
+
 			}
 		}
 
@@ -93,10 +97,13 @@ public class RightController : MonoBehaviour {
 
 
 			//when creating the typology prefab and colllided with the tpology button in the menu
-
+			if (leftTheInstantitatedTypology == false) {
+				instantiatedPrefab.transform.position = rightControllerPosition;
+			}
+				
 
 			//while holding the trigger and tpology created, keep it in the same position of the controller
-			//typology.transform.position = rightControllerPosition;
+			//
 
 
 
@@ -106,7 +113,10 @@ public class RightController : MonoBehaviour {
 		if (triggerButtonUp) 
 		{
 			//after releasing the trigger it stays whenever its placed
-
+			if (leftTheInstantitatedTypology == false) {
+				instantiatedPrefab.transform.position = rightControllerPosition;
+				leftTheInstantitatedTypology = true;
+			}
 
 		}
 	}
